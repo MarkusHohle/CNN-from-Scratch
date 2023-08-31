@@ -10,7 +10,7 @@ Creating a CNN from scratch, only using numpy, step by step. Each chapter contai
  5 backprob              
  6 optimizer             
  7 weights               
- 8 convolution and images
+ 8 convolution and images 
  9 max pool              
  10 sigmoid              
  11 backprob II          
