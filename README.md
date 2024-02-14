@@ -1,9 +1,10 @@
 # CNN from Scratch
- Lecture material (codes, pdf). CNN with numpy only 
 
  Lecture material (codes, pdf). Learning how to create CNNs with numpy only
 
- Creating a CNN from scratch, only using numpy, step by step. Each chapter contains a fully functional code for the corresponding topic. PDFs of the lecture (from ppt) explaining the mathematical background are added too. Chapters are:
+ Creating a CNN from scratch, only using numpy, step by step. Each chapter contains a fully functional code for the corresponding topic. PDFs of the lecture (from ppt) explaining the mathematical background are added too.   
+
+## Chapters are:
 
  1 single neuron  
  2 layers of neurons  
