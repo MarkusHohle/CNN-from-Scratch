@@ -5,9 +5,9 @@ Created on Tue Dec  6 10:57:41 2022
 @author: hohle
 """
 
+import numpy as np
+
 def threeNeurons_OneLayer(inputs):
-    
-    import numpy as np
     
     l = len(inputs)
     
