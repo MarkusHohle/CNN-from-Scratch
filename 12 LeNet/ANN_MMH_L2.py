@@ -19,7 +19,7 @@ import numpy as np
 ###############################################################################
 
 class ConvLayer:
-    #code inspired by Fisseha Berhane
+    
     def __init__(self, xKernShape = 3, yKernShape = 3, Kernnumber = 10):
                     
             #kernel sizes
@@ -428,19 +428,13 @@ class Sigmoid:
 ###############################################################################
 class Tanh:
         
-    def forward(self, M):
-        
-        tanh        = (np.exp(M) - np.exp(-M))/(np.exp(M) + np.exp(-M)+ 1e-7)
-        self.output = np.nan_to_num(tanh)
-        self.inputs = np.nan_to_num(tanh) #needed for back prop
+    def forward(self, inputs):
+        self.output = np.tanh(inputs)
+        self.inputs = inputs
             
     def backward(self, dvalues):
-        
-        tanh         = self.inputs
-        deriv        = 1 - tanh**2
-        deriv        = np.nan_to_num(deriv)
+        deriv        = 1 - self.output**2
         self.dinputs = np.multiply(deriv, dvalues)
-
 ###############################################################################
 #
 ###############################################################################

@@ -430,7 +430,7 @@ class Tanh:
         
     def forward(self, M):
         
-        tanh        = (np.exp(M) - np.exp(-M))/(np.exp(M) + np.exp(-M)+ 1e-7)
+        self.tanh   = np.tanh(M)
         self.output = np.nan_to_num(tanh)
         self.inputs = np.nan_to_num(tanh) #needed for back prop
             
