@@ -14,11 +14,11 @@
  6 backprob  
  7 optimizer  
  8 learning and training  
- 9 convolution   
- 10 pooling
- 11 sigmoid and tanh 
- 12 flattening
- 13 backprob II  
- 14 testing and building LeNet  
+ 9 convolution     
+ 10 pooling  
+ 11 sigmoid and tanh  
+ 12 flattening  
+ 13 backprob II    
+ 14 testing and building LeNet   
 
  Lecture was inspired by the excellent book from Harrison Kinsley & Daniel Kukiela
