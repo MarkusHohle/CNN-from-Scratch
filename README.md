@@ -8,15 +8,17 @@
 
  1 single neuron  
  2 layers of neurons  
- 3 activation  
- 4 loss and entropy  
- 5 backprob  
- 6 optimizer  
- 7 weights  
- 8 convolution and images   
- 9 max pool  
- 10 sigmoid  
- 11 backprob II  
- 12 LeNet  
+ 3 activation functions
+ 4 softmax  
+ 5 loss and entropy  
+ 6 backprob  
+ 7 optimizer  
+ 8 learning and training  
+ 9 convolution   
+ 10 pooling
+ 11 sigmoid and tanh 
+ 12 flattening
+ 13 backprob II  
+ 14 testing and building LeNet  
 
  Lecture was inspired by the excellent book from Harrison Kinsley & Daniel Kukiela

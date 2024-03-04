@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Dec  6 10:57:41 2022
+Created on Fri Feb 16 02:42:58 2024
 
-@author: hohle
+@author: MMH_user
 """
 
 import numpy as np
@@ -12,8 +12,8 @@ def threeNeurons_OneLayer(inputs):
     l = len(inputs)
     
     weights = np.random.rand(3,l)
-    bias    = np.random.rand(3)
+    bias    = np.random.rand(3,1)
     
-    out = np.dot(weights,inputs) + bias
+    out     = np.dot(weights,inputs) + bias
     
     return(out)

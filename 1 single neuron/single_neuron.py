@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Dec  6 10:35:12 2022
+Created on Fri Feb 16 01:20:05 2024
 
-@author: hohle
+@author: MMH_user
 """
 
 import numpy as np
@@ -14,6 +14,6 @@ def single_neuron(inputs):
     weights = np.random.rand(1,l)
     bias    = np.random.rand(1,1)
     
-    out = np.dot(weights,inputs) + bias
+    out     = np.dot(weights,inputs) + bias
     
     return(out)
