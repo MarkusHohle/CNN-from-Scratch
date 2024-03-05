@@ -31,6 +31,7 @@ import matplotlib.pyplot as plt
 ###############################################################################
 # LeNet model as discussed in the lecture
 class MyLeNet(Sequential):
+    
     def __init__(self, input_shape, nb_classes):
         super().__init__()
 

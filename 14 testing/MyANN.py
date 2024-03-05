@@ -27,7 +27,7 @@ class Read_Scale_Imds:
         
         self.minibatch_size = minibatch_size
         
-        my_path   = r'C:\YOUR PATH'
+        my_path   = r'C:\Users\MMH_user\Desktop\QBM\QBM\courses\Python\ANN\pet pics'
         form      = '.jpg'
 
         path_dogs = my_path + '\Dog\\' + '*' + form
@@ -107,10 +107,7 @@ class ConvLayer:
     #getting shapes and channels
     #note: numChans referes to incomming matrix, Kernnumber to output matrix
 
-        xImgShape  = M.shape[0]
-        yImgShape  = M.shape[1]
-        numChans   = M.shape[2]
-        numImds    = M.shape[3]
+        [xImgShape, yImgShape, numChan, numImds] = M.shape
     
         xK         = self.xKernShape
         yK         = self.yKernShape
@@ -128,10 +125,10 @@ class ConvLayer:
         #------------------------------------------------------------------
         W = np.nan_to_num(self.weights)
         #initializing empty output matrix
-        output = np.zeros((xOutput,yOutput,numChans,NK,numImds))
+        output = np.zeros((xOutput,yOutput,numChan,NK,numImds))
 
         imagePadded = np.zeros(((xImgShape + padding*2),\
-                                (yImgShape + padding*2),numChans,NK,numImds))
+                                (yImgShape + padding*2),numChan,NK,numImds))
                         
         for k in range(NK):
             imagePadded[int(padding):int(padding + xImgShape),\
@@ -142,7 +139,7 @@ class ConvLayer:
         #not every of the six feature maps of C1 is connected to each of the
         #16 feature maps in C2 --> need a filter
         
-        if numChans == 6 & NK == 16:
+        if numChan == 6 & NK == 16:
             filt = np.array([[1,0,0,0,1,1,1,0,0,1,1,1,1,0,1,1],\
                              [1,1,0,0,0,1,1,1,0,0,1,1,1,1,0,1],\
                              [1,1,1,0,0,0,1,1,1,0,0,1,0,1,1,1],\
@@ -150,14 +147,14 @@ class ConvLayer:
                              [0,0,1,1,1,0,0,1,1,1,1,0,1,1,0,1],\
                              [0,0,0,1,1,1,0,0,1,1,1,1,0,1,1,1]])
         else:
-            filt = np.ones([numChans,NK])
+            filt = np.ones([numChan,NK])
             
         self.filt = filt
 
 
         for i in range(numImds):# loop over number of images
             currentIm_pad = imagePadded[:,:,:,:,i]# Select ith padded image
-            for c in range(numChans):# loop over channels
+            for c in range(numChan):# loop over channels
                 for k in range(NK): #loop over filter
                 
                   if filt[c,k] == 1:
@@ -167,9 +164,9 @@ class ConvLayer:
 
                                # finding corners of the current "slice" 
                                y_start = y*stride
-                               y_end   = y*stride + yK
+                               y_end   = y_start + yK
                                x_start = x*stride 
-                               x_end   = x*stride + xK
+                               x_end   = x_start + xK
                     
                                #selecting the current part of the image
                                current_slice = currentIm_pad[x_start:x_end,\
@@ -210,13 +207,13 @@ class ConvLayer:
         
         S = imagePadded.shape
         
-        dinputs     = np.zeros((S[0],S[1],S[2],S[4]))
-        dbiases     = np.zeros(biases.shape)
-        dweights    = np.zeros(weights.shape)
+        dinputs    = np.zeros((S[0],S[1],S[2],S[4]))
+        dbiases    = np.zeros(biases.shape)
+        dweights   = np.zeros(weights.shape)
         
         xd         = dvalues.shape[0]
         yd         = dvalues.shape[1]
-        numChans   = S[2]
+        numChan    = S[2]
         numImds    = dvalues.shape[3]
         
         #defining matrix for dinputs: note: has do be de-padded at the end
@@ -225,7 +222,7 @@ class ConvLayer:
         for i in range(numImds):# loop over number of images
             currentIm_pad = imagePadded[:,:,:,i]# Select ith padded image
             for k in range(NK):# loop over kernels (= #filters)
-               for c in range(numChans):# loop over channels of incomming data
+               for c in range(numChan):# loop over channels of incomming data
                   
                    if filt[c,k] ==1:
                  
@@ -235,9 +232,9 @@ class ConvLayer:
                          
                             # finding corners of the current "slice" (≈4 lines)
                             y_start = y*stride
-                            y_end   = y*stride + yK
+                            y_end   = y_start + yK
                             x_start = x*stride 
-                            x_end   = x*stride + xK
+                            x_end   = x_start + xK
                                 
                             sx      = slice(x_start,x_end)
                             sy      = slice(y_start,y_end)
@@ -266,10 +263,7 @@ class Average_Pool:
     
     def forward(self, M, stride = 1, KernShape = 2):
         
-        xImgShape  = M.shape[0]
-        yImgShape  = M.shape[1]
-        numChans   = M.shape[2]
-        numImds    = M.shape[3]
+        [xImgShape, yImgShape, numChan, numImds] = M.shape
         
         self.inputs = M
         
@@ -282,19 +276,19 @@ class Average_Pool:
         
         imagePadded = M
         #output matrix after max pool
-        output = np.zeros((xOutput,yOutput,numChans,numImds))
+        output = np.zeros((xOutput,yOutput,numChan,numImds))
         
         for i in range(numImds):# loop over number of images
             currentIm_pad = imagePadded[:,:,:,i]# select ith padded image
             for y in range(yOutput):# loop over vert axis of output
                 for x in range(xOutput):# loop over hor axis of output
-                    for c in range(numChans):# loop over channels (= #filters)
+                    for c in range(numChan):# loop over channels (= #filters)
                     
                     # finding corners of the current "slice" 
                         y_start = y*stride
-                        y_end   = y*stride + yK
+                        y_end   = y_start + yK
                         x_start = x*stride 
-                        x_end   = x*stride + xK
+                        x_end   = x_start + xK
                         
                         sx      = slice(x_start,x_end)
                         sy      = slice(y_start,y_end)
@@ -318,8 +312,8 @@ class Average_Pool:
         xd = dvalues.shape[0]
         yd = dvalues.shape[1]
         
-        numChans = dvalues.shape[2]
-        numImds  = dvalues.shape[3]
+        numChan = dvalues.shape[2]
+        numImds = dvalues.shape[3]
         
         imagePadded = self.impad
         dinputs     = np.zeros(imagePadded.shape)
@@ -335,7 +329,7 @@ class Average_Pool:
         for i in range(numImds):# loop over number of images
             for y in range(yd):# loop over vert axis of output
                 for x in range(xd):# loop over hor axis of output
-                    for c in range(numChans):# loop over channels (= #filters)
+                    for c in range(numChan):# loop over channels (= #filters)
                     
                         # finding corners of the current "slice" 
                         y_start = y*stride
@@ -609,13 +603,10 @@ class Flat:
         
         self.inputs = M
             
-        xImgShape  = M.shape[0]
-        yImgShape  = M.shape[1]
-        numChans   = M.shape[2]
-        numImds    = M.shape[3]
+        [xImgShape, yImgShape, numChan, numImds] = M.shape
             
         #turning each image into a vector of length L
-        L = xImgShape*yImgShape*numChans
+        L = xImgShape*yImgShape*numChan
         
         #not sure if reshape keeps the order between(!) different images
         output = np.zeros((numImds,L))
@@ -626,12 +617,12 @@ class Flat:
         
     def backward(self, dvalues):
         
-        [xImgShape, yImgShape, numChans, numImds] = np.shape(self.inputs)
-        dinputs = np.zeros((xImgShape, yImgShape,numChans, numImds))
+        [xImgShape, yImgShape, numChan, numImds] = np.shape(self.inputs)
+        dinputs = np.zeros((xImgShape, yImgShape,numChan, numImds))
         
         for i in range(numImds):
             dinputs[:,:,:,i] = dvalues[i,:].reshape((xImgShape, yImgShape,\
-                                                     numChans))
+                                                     numChan))
         
         self.dinputs = dinputs
 

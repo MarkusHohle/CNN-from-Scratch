@@ -50,7 +50,7 @@ class MyLeNet():
         
         
     def RunTraining(self, minibatch_size = 64, iterations = 10, epochs = 500,\
-                    learning_rate = 0.1, decay = 0.001, momentum = 0.9, saved_weights = "No"):
+                    learning_rate = 0.1, decay = 0.001, momentum = 0.5, saved_weights = "No"):
         
 ###############################################################################
         #initializing layers
@@ -128,6 +128,7 @@ class MyLeNet():
                 dense1.forward(x)
                 T[3].forward(dense1.output)
                 dense2.forward(T[3].output)
+                
                 loss = loss_activation.forward(dense2.output, C)
                  
                 predictions = np.argmax(loss_activation.output, axis = 1)
