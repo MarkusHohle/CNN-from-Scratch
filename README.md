@@ -8,7 +8,7 @@
 
  1 single neuron  
  2 layers of neurons  
- 3 activation functions
+ 3 activation functions  
  4 softmax  
  5 loss and entropy  
  6 backprob  
