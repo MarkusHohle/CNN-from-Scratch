@@ -254,8 +254,6 @@ class ConvLayer:
         self.dbiases  = dbiases  + 2* self.biases_L2 *self.biases
         self.dweights = dweights + 2* self.weights_L2 *self.weights
         
-
-
 ###############################################################################
 # different pooling options
 ###############################################################################
@@ -299,7 +297,6 @@ class Average_Pool:
                         slice_mean         = float(current_slice.mean())
                         output[x, y, c, i] = slice_mean
                         
-        
         #storing info, also for backpropagation
         self.xKernShape = xK
         self.yKernShape = yK
@@ -333,9 +330,9 @@ class Average_Pool:
                     
                         # finding corners of the current "slice" 
                         y_start = y*stride
-                        y_end   = y*stride + yK
+                        y_end   = y_start + yK
                         x_start = x*stride 
-                        x_end   = x*stride + xK
+                        x_end   = x_start + xK
                             
                         sx      = slice(x_start,x_end)
                         sy      = slice(y_start,y_end)
@@ -368,7 +365,7 @@ class Min_Pool:
         StoreMin         = np.zeros((xK*yK, 2, xOutput*yOutput, numChan, numImds))
         StoreNMin        = np.zeros((xOutput*yOutput, numChan, numImds))
         
-        imagePadded_copy = imagePadded.copy() * 0
+        imagePadded_copy = imagePadded.copy()*0
         
         for i in range(numImds):
             currentIm_pad = imagePadded[:,:,:,i]
@@ -403,7 +400,7 @@ class Min_Pool:
                         imagePadded_copy[sx, sy, c, i] += np.equal(\
                                     currentIm_pad[sx,sy,c], slice_min).astype(float)
                             
-        mask      = imagePadded_copy
+        mask            = imagePadded_copy
                         
                         
         self.xKernShape = xK

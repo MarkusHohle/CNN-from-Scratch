@@ -49,7 +49,7 @@ class MyLeNet():
         self.Ntot      = range(len(train_y))
         
         
-    def RunTraining(self, minibatch_size = 64, iterations = 10, epochs = 500,\
+    def RunTraining(self, minibatch_size = 512, iterations = 10, epochs = 500,\
                     learning_rate = 0.1, decay = 0.001, momentum = 0.5, saved_weights = "No"):
         
 ###############################################################################

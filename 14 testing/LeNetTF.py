@@ -123,9 +123,6 @@ class Model:
                   validation_data=(val_x, val_y),\
                   verbose=1)
 
-
-
-
     # summarize history for accuracy
         plt.plot(history.history['accuracy'])
         plt.plot(history.history['val_accuracy'])
